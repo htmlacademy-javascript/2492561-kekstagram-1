@@ -1,5 +1,5 @@
 //Функция для проверки, является ли строка палиндромом
-function isPalindrome (string){
+export function isPalindrome (string){
   string = string.toLowerCase();
   string = string.replaceAll(' ','');
   let reverseString = '';
@@ -9,7 +9,7 @@ function isPalindrome (string){
   return (string === reverseString);
 }
 
-function isPalindrome2 (string){
+export function isPalindrome2 (string){
   string = string.toLowerCase();
   string = string.replaceAll(' ','');
   let left = 0;
@@ -26,7 +26,7 @@ function isPalindrome2 (string){
 
 
 //Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
-function getNumber (string) {
+export function getNumber (string) {
   let number = '';
   for (let i = 0; i < string.length; i++) {
     if (!isNaN(parseInt(string[i],10))) {
@@ -37,7 +37,7 @@ function getNumber (string) {
 }
 
 //Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами — и возвращает исходную строку, дополненную указанными символами до заданной длины.
-function getEditingString(string, length, symbol) {
+export function getEditingString(string, length, symbol) {
   let result = string;
   while (result.length < length) {
     const diff = result.length + symbol.length - length;
@@ -56,7 +56,7 @@ function getEditingString(string, length, symbol) {
 
 //Функция для проверки длины строки.
 
-function checkLength (string, length) {
+export function checkLength (string, length) {
   return string.length <= length;
 }
 
