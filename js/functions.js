@@ -1,7 +1,8 @@
 //Функция для проверки, является ли строка палиндромом
 export const checkPalindrome = (word) => {
-  word = word.toLowerCase();
-  word = word.replaceAll(' ','');
+  word = word
+    .toLowerCase()
+    .replaceAll(' ','');
   let reverseWord = '';
   for (let i = word.length - 1; i >= 0; i--) {
     reverseWord += word[i];
