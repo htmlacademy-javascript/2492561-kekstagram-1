@@ -1,32 +1,32 @@
 //Функция для проверки, является ли строка палиндромом
-export function isPalindrome (string){
-  string = string.toLowerCase();
-  string = string.replaceAll(' ','');
+export const checkPalindrome = (word) => {
+  word = word.toLowerCase();
+  word = word.replaceAll(' ','');
   let reverseString = '';
-  for (let i = string.length - 1; i >= 0; i--) {
-    reverseString += string[i];
+  for (let i = word.length - 1; i >= 0; i--) {
+    reverseString += word[i];
   }
-  return (string === reverseString);
-}
+  return (word === reverseString);
+};
 
-export function isPalindrome2 (string){
-  string = string.toLowerCase();
-  string = string.replaceAll(' ','');
+export const checkPalindrome2 = (word) => {
+  word = word.toLowerCase();
+  word = word.replaceAll(' ','');
   let left = 0;
-  let right = string.length - 1;
+  let right = word.length - 1;
   while (left < right) {
-    if (string[left] !== string[right]) {
+    if (word[left] !== word[right]) {
       return false;
     }
     left++;
     right--;
   }
   return true;
-}
+};
 
 
 //Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
-export function getNumber (string) {
+export const getNumber = (string) => {
   let number = '';
   for (let i = 0; i < string.length; i++) {
     if (!isNaN(parseInt(string[i],10))) {
@@ -34,16 +34,16 @@ export function getNumber (string) {
     }
   }
   return parseInt(number,10);
-}
+};
 
 //Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами — и возвращает исходную строку, дополненную указанными символами до заданной длины.
-export function getEditingString(string, length, symbol) {
+export const getEditingString = (string, length, symbol) => {
   let result = string;
   while (result.length < length) {
-    const diff = result.length + symbol.length - length;
-    if (diff > 0) {
+    const DIFF = result.length + symbol.length - length;
+    if (DIFF > 0) {
       let slicedSymbol = '';
-      for (let i = 0; i < symbol.length - diff; i++) {
+      for (let i = 0; i < symbol.length - DIFF; i++) {
         slicedSymbol += symbol[i];
       }
       result = slicedSymbol + result;
@@ -52,11 +52,7 @@ export function getEditingString(string, length, symbol) {
     result = symbol + result;
   }
   return result;
-}
+};
 
 //Функция для проверки длины строки.
-
-export function checkLength (string, length) {
-  return string.length <= length;
-}
-
+export const checkLength = (string, length) => string.length <= length;
