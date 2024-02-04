@@ -55,4 +55,4 @@ export const getEditingString = (string, length, symbol) => {
 };
 
 //Функция для проверки длины строки.
-export const checkLength = (string, length) => string.length <= length;
+export const checkStringLength = (string, length) => string.length <= length;
