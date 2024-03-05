@@ -3,7 +3,10 @@ import {pictureRender} from './picture-render.js';
 
 const photosList = Array.from({length: ACCEPTABLE_NUMBER_OF_ID}, usersPfotoDescriptions);
 
+
 const pictures = document.querySelector('.pictures');
+const picturesBox = document.createDocumentFragment();
 photosList.forEach((photo) => {
-  pictures.appendChild(pictureRender(photo.url, photo.comments.length, photo.likes));
+  picturesBox.appendChild(pictureRender(photo.url, photo.comments.length, photo.likes));
 });
+pictures.appendChild(picturesBox);
