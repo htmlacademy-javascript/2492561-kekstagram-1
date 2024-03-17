@@ -18,6 +18,8 @@ export const usersPfotoDescriptions = () => {
     url: `photos/${newID}.jpg`,
     description: PHOTOS_DESCRIPTIONS[newID - 1],
     likes: getRandomInteger(15, 200),
-    comments: Array.from({length: getRandomInteger(1,4)}, makeComments)
+    comments: Array.from({length: getRandomInteger(1,5)}, makeComments)
   };
 };
+
+export const photosList = Array.from({length: ACCEPTABLE_NUMBER_OF_ID}, usersPfotoDescriptions);
