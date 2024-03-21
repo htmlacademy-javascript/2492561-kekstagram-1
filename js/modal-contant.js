@@ -1,11 +1,6 @@
 const fullPictureModal = document.querySelector('.big-picture');
 
-export const addEventListenerforOpenModal = (photo) => {
-  //Пункты 3-4
-  document.body.classList.add('modal-open');
-  fullPictureModal.querySelector('.social__comment-count').classList.add('hidden');
-  fullPictureModal.querySelector('.comments-loader').classList.add('hidden');
-
+export const fillModal = (photo) => {
   //Наполнение модального окна
   fullPictureModal.querySelector('img').src = photo.url;
   fullPictureModal.querySelector('.likes-count').textContent = photo.likes;
@@ -34,26 +29,9 @@ export const addEventListenerforOpenModal = (photo) => {
     commentText.classList.add('social__text');
     commentText.textContent = comment.message;
     commentUnit.appendChild(commentText);
-
     commentsContainer.appendChild(commentUnit);
   });
   commentsList.appendChild(commentsContainer);
-  fullPictureModal.classList.remove('hidden');
 };
 
-//Обработчик закрытия модального окна при клике на кнопку и нажатия Esc
-export const addEventListenerForCloseModal = () => {
-  const closeButton = fullPictureModal.querySelector('#picture-cancel');
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      evt.preventDefault();
-      fullPictureModal.classList.add('hidden');
-      document.body.classList.remove('modal-open');
-    }
-  });
-  closeButton.addEventListener('click', () => {
-    fullPictureModal.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-  });
-};
 
