@@ -1,6 +1,6 @@
 import { photosList } from './data-generator.js';
 import {fillThumbnail} from './thumbnail-contant.js';
-import { openModal, closeModal } from './modal-events.js';
+import { openModal, addEventListenerForModal } from './modal-events.js';
 import { fillModal } from './modal-contant.js';
 
 //Отрисовка миниатюр
@@ -12,7 +12,7 @@ photosList.forEach((photo) => {
 pictures.appendChild(picturesBox);
 
 //Обработчик клика на миниатюру
-const closeModalButton = document.querySelector('.big-picture__cancel');
+
 const formattedPictures = photosList.reduce((acc, val) => {
   acc.push([String(val.id), val]);
   return acc;
@@ -22,8 +22,7 @@ const picturesContainer = document.querySelector('.pictures');
 picturesContainer.addEventListener('click', (event) => {
   const element = event.target.closest('.picture');
   if(element) {
-    closeModalButton.addEventListener('click', closeModal);
-    document.addEventListener('keydown', closeModal);
+    addEventListenerForModal();
     const elementId = element.getAttribute('id');
     const photoObject = picturesMap.get(elementId);
     fillModal(photoObject);
