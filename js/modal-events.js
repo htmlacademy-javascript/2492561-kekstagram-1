@@ -1,4 +1,5 @@
 const fullPictureModal = document.querySelector('.big-picture');
+const closeModalButton = document.querySelector('.big-picture__cancel');
 //Открытие модального окна
 export const openModal = () => {
   document.body.classList.add('modal-open');
@@ -8,11 +9,14 @@ export const openModal = () => {
 };
 
 //Закрытие модального окна при клике на кнопку и нажатия Esc
-export const closeModal = function () {
+const closeModal = function () {
   fullPictureModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  this.removeEventListener('click', closeModal);
+  closeModalButton.removeEventListener('click', closeModal);
   document.removeEventListener('keydown', closeModal);
 };
 
-
+export const addEventListenerForModal = () => {
+  closeModalButton.addEventListener('click', closeModal);
+  document.addEventListener('keydown', closeModal);
+};
