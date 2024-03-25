@@ -11,10 +11,10 @@ export const openModal = () => {
 
 //Реализация кнопки "Загрузить еще"
 let startIndex = 5;
-const loadMoar = () => {
+const loadMore = () => {
   const commentListLength = commentList.querySelectorAll('.social__comment').length;
   const commentPortion = 5;
-  if (startIndex + commentPortion >= commentList.querySelectorAll('.social__comment').length) {
+  if (startIndex + commentPortion >= commentListLength) {
     for (let i = startIndex; i < commentListLength; i++) {
       commentList.querySelectorAll('.social__comment')[i].classList.remove('hidden');
     }
@@ -29,7 +29,7 @@ const loadMoar = () => {
   }
 };
 export const addEventForLoadMoar = () => {
-  loadMoarButton.addEventListener('click', loadMoar);
+  loadMoarButton.addEventListener('click', loadMore);
 };
 
 //Закрытие модального окна при клике на кнопку и нажатия Esc
@@ -38,7 +38,7 @@ const closeModal = () => {
   document.body.classList.remove('modal-open');
   closeModalButton.removeEventListener('click', closeModal);
   document.removeEventListener('keydown', closeModal);
-  loadMoarButton.removeEventListener('click', loadMoar);
+  loadMoarButton.removeEventListener('click', loadMore);
   startIndex = 5;
 };
 
