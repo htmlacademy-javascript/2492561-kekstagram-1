@@ -1,4 +1,4 @@
-import { commentList } from './modal-contant.js';
+import { commentListNodes, commentListLength } from './modal-contant.js';
 import { fullPictureModal } from './modal-contant.js';
 const closeModalButton = document.querySelector('.big-picture__cancel');
 const loadMoarButton = fullPictureModal.querySelector('.social__comments-loader');
@@ -12,17 +12,16 @@ export const openModal = () => {
 //Реализация кнопки "Загрузить еще"
 let startIndex = 5;
 const loadMore = () => {
-  const commentListLength = commentList.querySelectorAll('.social__comment').length;
   const commentPortion = 5;
   if (startIndex + commentPortion >= commentListLength) {
     for (let i = startIndex; i < commentListLength; i++) {
-      commentList.querySelectorAll('.social__comment')[i].classList.remove('hidden');
+      commentListNodes[i].classList.remove('hidden');
     }
     fullPictureModal.querySelector('.social__comment-count').textContent = `${commentListLength} из ${commentListLength} комментариев`;
     fullPictureModal.querySelector('.comments-loader').classList.add('hidden');
   } else {
     for (let i = startIndex; i < startIndex + commentPortion; i++) {
-      commentList.querySelectorAll('.social__comment')[i].classList.remove('hidden');
+      commentListNodes[i].classList.remove('hidden');
     }
     startIndex += commentPortion;
     fullPictureModal.querySelector('.social__comment-count').textContent = `${startIndex} из ${commentListLength} комментариев`;
