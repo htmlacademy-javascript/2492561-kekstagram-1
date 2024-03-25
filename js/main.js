@@ -1,6 +1,6 @@
 import { photosList } from './data-generator.js';
 import {fillThumbnail} from './thumbnail-contant.js';
-import { openModal, addEventListenerForModal } from './modal-events.js';
+import { openModal, addEventForModal, addEventForLoadMoar } from './modal-events.js';
 import { fillModal } from './modal-contant.js';
 
 //Отрисовка миниатюр
@@ -22,7 +22,8 @@ const picturesContainer = document.querySelector('.pictures');
 picturesContainer.addEventListener('click', (event) => {
   const element = event.target.closest('.picture');
   if(element) {
-    addEventListenerForModal();
+    addEventForModal();
+    addEventForLoadMoar();
     const elementId = element.getAttribute('id');
     const photoObject = picturesMap.get(elementId);
     fillModal(photoObject);
