@@ -18,7 +18,7 @@ export const usersPfotoDescriptions = () => {
     url: `photos/${newID}.jpg`,
     description: PHOTOS_DESCRIPTIONS[newID - 1],
     likes: getRandomInteger(15, 200),
-    comments: Array.from({length: getRandomInteger(1,5)}, makeComments)
+    comments: Array.from({length: getRandomInteger(1,25)}, makeComments)
   };
 };
 

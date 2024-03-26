@@ -1,10 +1,11 @@
-const fullPictureModal = document.querySelector('.big-picture');
+export const fullPictureModal = document.querySelector('.big-picture');
+export const commentListNodes = document.querySelectorAll('.social__comment');
+export const commentListLength = commentListNodes.length;
 
 export const fillModal = (photo) => {
   //Наполнение модального окна
   fullPictureModal.querySelector('img').src = photo.url;
   fullPictureModal.querySelector('.likes-count').textContent = photo.likes;
-  fullPictureModal.querySelector('.comments-count').textContent = photo.comments.length;
   fullPictureModal.querySelector('.social__caption').textContent = photo.description;
 
   //Наполнение блока комментариев
@@ -14,6 +15,7 @@ export const fillModal = (photo) => {
   photo.comments.forEach((comment) => {
     const commentUnit = document.createElement('li');
     commentUnit.classList.add('social__comment');
+    commentUnit.classList.add('hidden');
 
     //Создание аватарки комменратрия
     const commentAvatar = document.createElement('img');
@@ -32,6 +34,19 @@ export const fillModal = (photo) => {
     commentsContainer.appendChild(commentUnit);
   });
   commentsList.appendChild(commentsContainer);
+
+  //Счетчик комментариев
+  if (commentListLength <= 5) {
+    fullPictureModal.querySelector('.social__comment-count').textContent = `${commentListLength} из ${commentListLength} комментариев`;
+    fullPictureModal.querySelector('.comments-loader').classList.add('hidden');
+    commentListNodes.forEach((comment) => comment.classList.remove('hidden'));
+  } else {
+    fullPictureModal.querySelector('.social__comment-count').textContent = `5 из ${commentListLength} комментариев`;
+    for (let i = 0; i < 5; i++) {
+      commentListNodes[i].classList.remove('hidden');
+    }
+    fullPictureModal.querySelector('.comments-loader').classList.remove('hidden');
+  }
 };
 
 
