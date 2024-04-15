@@ -2,6 +2,7 @@ import { photosList } from './data-generator.js';
 import {fillThumbnail} from './thumbnail-contant.js';
 import { openModal, addEventForModal, addEventForLoadMoar } from './modal-events.js';
 import { fillModal } from './modal-contant.js';
+import { uploadFileInput, openPreviewOverlay } from './preview-form.js';
 
 //Отрисовка миниатюр
 const pictures = document.querySelector('.pictures');
@@ -31,4 +32,5 @@ picturesContainer.addEventListener('click', (event) => {
   }
 });
 
-
+//Показ редактора загружаемого изображения
+uploadFileInput.addEventListener('change', openPreviewOverlay);

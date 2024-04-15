@@ -1,4 +1,3 @@
-import { commentListNodes, commentListLength } from './modal-contant.js';
 import { fullPictureModal } from './modal-contant.js';
 const closeModalButton = document.querySelector('.big-picture__cancel');
 const loadMoarButton = fullPictureModal.querySelector('.social__comments-loader');
@@ -12,6 +11,8 @@ export const openModal = () => {
 //Реализация кнопки "Загрузить еще"
 let startIndex = 5;
 const loadMore = () => {
+  const commentListNodes = fullPictureModal.querySelectorAll('.social__comment');
+  const commentListLength = commentListNodes.length;
   const commentPortion = 5;
   if (startIndex + commentPortion >= commentListLength) {
     for (let i = startIndex; i < commentListLength; i++) {
@@ -31,17 +32,25 @@ export const addEventForLoadMoar = () => {
   loadMoarButton.addEventListener('click', loadMore);
 };
 
-//Закрытие модального окна при клике на кнопку и нажатия Esc
-const closeModal = () => {
+//Закрытие модального окна при:
+//клике на кнопку
+const closeModalOnButton = () => {
   fullPictureModal.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  closeModalButton.removeEventListener('click', closeModal);
-  document.removeEventListener('keydown', closeModal);
+  closeModalButton.removeEventListener('click', closeModalOnButton);
+  document.removeEventListener('keydown', closeModalOnEscape);
   loadMoarButton.removeEventListener('click', loadMore);
   startIndex = 5;
 };
+// и нажатии Esc
+function closeModalOnEscape (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closeModalOnButton();
+  }
+}
 
 export const addEventForModal = () => {
-  closeModalButton.addEventListener('click', closeModal);
-  document.addEventListener('keydown', closeModal);
+  closeModalButton.addEventListener('click', closeModalOnButton);
+  document.addEventListener('keydown', closeModalOnEscape);
 };
