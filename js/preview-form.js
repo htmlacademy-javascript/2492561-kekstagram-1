@@ -1,6 +1,8 @@
+import { deleteEventsOnScaleButtons, addEventOnScaleButtons } from './scale-image.js';
+import { imageInContainer, slider } from './effects.js';
+
 export const uploadFileInput = document.querySelector('#upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
-const perviewContainer = document.querySelector('.img-upload__preview');
 const perviewForm = document.querySelector('.img-upload__form');
 const perviewFormSubmitButton = perviewForm.querySelector('#upload-submit');
 
@@ -55,19 +57,26 @@ const addEventOnSubmitForm = () => {
 
 //Скрытие редактора загружаемого изображения
 const perviewFormCloseButton = perviewForm.querySelector('#upload-cancel');
+const hideUploadOverlay = () => {
+  uploadOverlay.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+};
+
+const deleteUploadOverlayButtonsEvents = () => {
+  perviewFormCloseButton.removeEventListener('click', closeUploadOverlayOnButton);
+  document.removeEventListener('keydown', closeUploadOverlayOnEscape);
+};
 
 const isFieldsFocused = () =>
   document.activeElement === hashtagField ||
   document.activeElement === descriptionField;
 // На кнопку
-const closeUploadOverlayOnButton = () => {
-  uploadOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  perviewFormCloseButton.removeEventListener('click', closeUploadOverlayOnButton);
-  document.removeEventListener('keydown', closeUploadOverlayOnEscape);
-  perviewForm.removeEventListener('submit', isFormValid);
+function closeUploadOverlayOnButton () {
+  hideUploadOverlay();
+  deleteUploadOverlayButtonsEvents();
+  deleteEventsOnScaleButtons();
   uploadFileInput.value = '';
-};
+}
 // На Escape
 function closeUploadOverlayOnEscape (evt) {
   if (evt.key === 'Escape' && isFieldsFocused()) {
@@ -86,14 +95,15 @@ const addEventForUploadOverlay = () => {
 export const openPreviewOverlay = function () {
   uploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
-
-  const file = this.files[0];
-  const reader = new FileReader();
-  reader.onloadend = function() {
-    perviewContainer.querySelector('img').src = reader.result;
-  };
-  reader.readAsDataURL(file);
-
+  imageInContainer.classList.add('effects__preview--none');
+  slider.classList.add('hidden');
+  // const file = this.files[0];
+  // const reader = new FileReader();
+  // reader.onloadend = function() {
+  //   perviewContainer.querySelector('img').src = reader.result;
+  // };
+  // reader.readAsDataURL(file);
+  addEventOnScaleButtons();
   addEventForUploadOverlay();
   addEventOnSubmitForm();
 };

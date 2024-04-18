@@ -34,3 +34,5 @@ picturesContainer.addEventListener('click', (event) => {
 
 //Показ редактора загружаемого изображения
 uploadFileInput.addEventListener('change', openPreviewOverlay);
+
+
