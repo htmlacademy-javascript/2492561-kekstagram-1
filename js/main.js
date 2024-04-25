@@ -32,7 +32,7 @@ picturesContainer.addEventListener('click', (event) => {
 
 //Показ редактора загружаемого изображения
 uploadFileInput.addEventListener('change', openPreviewOverlay);
-//Отправка данных формы
+//Отправка данных форм
 formSubmit(hideUploadOverlay);
 
 
