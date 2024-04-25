@@ -3,7 +3,7 @@ import { imageInContainer, slider } from './effects.js';
 
 export const uploadFileInput = document.querySelector('#upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
-const perviewForm = document.querySelector('.img-upload__form');
+export const perviewForm = document.querySelector('.img-upload__form');
 const perviewFormSubmitButton = perviewForm.querySelector('#upload-submit');
 
 const HASHTAG_COUNT = 5;
@@ -42,14 +42,17 @@ pristine.addValidator(
 const isFormValid = () => pristine.validate();
 
 //Блокировка submitButton
+
+export const blockSubmitButton = (boolen) => {
+  perviewFormSubmitButton.disabled = boolen;
+};
 const blockSubmit = () => {
   if (!isFormValid()) {
-    perviewFormSubmitButton.disabled = true;
+    blockSubmitButton(true);
   } else {
-    perviewFormSubmitButton.disabled = false;
+    blockSubmitButton(false);
   }
 };
-perviewForm.addEventListener('input', blockSubmit);
 const addEventOnSubmitForm = () => {
   perviewForm.addEventListener('input', blockSubmit);
 };
@@ -57,7 +60,7 @@ const addEventOnSubmitForm = () => {
 
 //Скрытие редактора загружаемого изображения
 const perviewFormCloseButton = perviewForm.querySelector('#upload-cancel');
-const hideUploadOverlay = () => {
+export const hideUploadOverlay = () => {
   uploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
 };
@@ -75,7 +78,7 @@ function closeUploadOverlayOnButton () {
   hideUploadOverlay();
   deleteUploadOverlayButtonsEvents();
   deleteEventsOnScaleButtons();
-  uploadFileInput.value = '';
+  perviewForm.reset();
 }
 // На Escape
 function closeUploadOverlayOnEscape (evt) {
