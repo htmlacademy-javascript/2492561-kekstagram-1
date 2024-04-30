@@ -65,3 +65,18 @@ export const hideDownloadOverlay = () => {
   document.querySelector('.img-upload__message').remove();
 };
 
+//10 случайных фото
+export const getTenRandomPhotos = (photos) => {
+  const photoCount = 10;
+  const randomPhotos = [];
+  let i = 1;
+  while (i <= photoCount) {
+    const randomPhoto = photos[Math.floor(Math.random() * photos.length)];
+    if (!randomPhotos.includes(randomPhoto)) {
+      randomPhotos.push(randomPhoto);
+      i++;
+    }
+  }
+  return randomPhotos;
+};
+
