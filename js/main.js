@@ -3,12 +3,17 @@ import { openModal, addEventForModal, addEventForLoadMoar } from './modal-events
 import { fillModal } from './modal-contant.js';
 import { uploadFileInput, openPreviewOverlay , hideUploadOverlay } from './preview-form.js';
 import { getloadDataAlert } from './utilities.js';
-import { readyMadeData, formSubmit } from './api.js';
-
+import { getData, formSubmit } from './api.js';
+import { showUpFiltersBlock, debounce, setButtonsClick, renderWithFilters } from './filters.js';
 //Отрисовка миниатюр
-readyMadeData
+getData()
   .then((photos) => {
     fillThumbnail(photos);
+    showUpFiltersBlock();
+    setButtonsClick(debounce(
+      () => renderWithFilters(photos),
+      500
+    ));
   })
   .catch(
     (err) => {
@@ -23,7 +28,7 @@ picturesContainer.addEventListener('click', (event) => {
   if(element) {
     addEventForModal();
     addEventForLoadMoar();
-    readyMadeData.then((photo) => {
+    getData().then((photo) => {
       fillModal(photo[element.getAttribute('id')]);
     });
     openModal();

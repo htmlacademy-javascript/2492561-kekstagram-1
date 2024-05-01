@@ -13,20 +13,36 @@ const ErrorText = {
   POST_DATA: 'Ошибка отправки формы.\nПроверьте данные и попробуйте снова'
 };
 //Запрос данных с сервера для отрисовки миниатюр
-const fetchConfig = (route, errorText , method = Method.GET_DATA, body = null) =>
-  fetch(route, {method, body})
-    .then((response) => {
-      if (!response.ok){
-        throw new Error();
-      }
-      return response.json();
-    })
-    .catch (() => {
-      throw new Error(errorText);
-    });
 
-const getData = () => fetchConfig(Route.GET_DATA, ErrorText.GET_DATA);
-export const readyMadeData = getData();
+function FetchWrapper() {
+  const cache = {};
+
+  return async (route, errorText, method = Method.GET_DATA, body = null, noCache = false) => {
+    if (cache[route] && !noCache) {
+      return cache[route];
+    }
+
+    return fetch(route, { method, body })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error();
+        }
+        return response.json();
+      })
+      .then((response) => {
+        if (!noCache) {
+          cache[route] = response;
+        }
+        return response;
+      })
+      .catch(() => {
+        throw new Error(errorText);
+      });
+  };
+}
+const fetchConfig = new FetchWrapper();
+
+export const getData = () => fetchConfig(Route.GET_DATA, ErrorText.GET_DATA);
 export const sendData = (body) => fetchConfig(Route.POST_DATA, ErrorText.POST_DATA , Method.POST_DATA, body);
 
 //Реализация отправки данных из формы на сервер
