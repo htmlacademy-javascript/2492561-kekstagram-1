@@ -3,6 +3,7 @@ import { imageInContainer, slider } from './effects.js';
 
 export const uploadFileInput = document.querySelector('#upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
+const preview = uploadOverlay.querySelector('img');
 export const perviewForm = document.querySelector('.img-upload__form');
 const perviewFormSubmitButton = perviewForm.querySelector('#upload-submit');
 
@@ -95,17 +96,21 @@ const addEventForUploadOverlay = () => {
 };
 
 //Показ редактора загружаемого изображенгия
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 export const openPreviewOverlay = function () {
   uploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   imageInContainer.classList.add('effects__preview--none');
   slider.classList.add('hidden');
-  // const file = this.files[0];
-  // const reader = new FileReader();
-  // reader.onloadend = function() {
-  //   perviewContainer.querySelector('img').src = reader.result;
-  // };
-  // reader.readAsDataURL(file);
+
+  const file = this.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    preview.src = URL.createObjectURL(file);
+  }
+
   addEventOnScaleButtons();
   addEventForUploadOverlay();
   addEventOnSubmitForm();
