@@ -44,60 +44,48 @@ const changeEffect = (evt) => {
   resetScaleValue();
   resetSlider();
   imageInContainer.className = `effects__preview--${evt.target.value}`;
-  if (evt.target.value === 'none') {
-    slider.classList.add('hidden');
-    imageInContainer.style.filter = '';
-  } else if (evt.target.value === 'chrome') {
-    slider.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1,
-      },
-      start: 1,
-      step: 0.1
-    });
-  } else if (evt.target.value === 'sepia') {
-    slider.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1,
-      },
-      start: 1,
-      step: 0.1
-    });
-  } else if (evt.target.value === 'marvin') {
-    slider.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 100,
-      },
-      start: 100,
-      step: 1
-    });
-  } else if (evt.target.value === 'phobos') {
-    slider.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 3,
-      },
-      start: 3,
-      step: 0.1
-    });
-  } else if (evt.target.value === 'heat') {
-    slider.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 1,
-        max: 3,
-      },
-      start: 3,
-      step: 0.1
-    });
+  switch (evt.target.value) {
+    case 'none':
+      slider.classList.add('hidden');
+      imageInContainer.style.filter = '';
+      break;
+    case 'chrome':
+    case 'sepia':
+      slider.classList.remove('hidden');
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 1,
+        },
+        start: 1,
+        step: 0.1
+      });
+      break;
+    case 'marvin':
+      slider.classList.remove('hidden');
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 100,
+        },
+        start: 100,
+        step: 1
+      });
+      break;
+    case 'phobos':
+    case 'heat':
+      slider.classList.remove('hidden');
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 3,
+        },
+        start: 3,
+        step: 0.1
+      });
+      break;
   }
+
   updateEffect(evt.target.value);
   effectCheck = EFFECTS_FILTRES[evt.target.value];
 };

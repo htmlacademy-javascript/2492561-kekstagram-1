@@ -37,13 +37,14 @@ export const fillModal = (photo) => {
   //Счетчик комментариев
   const commentListNodes = fullPictureModal.querySelectorAll('.social__comment');
   const commentListLength = commentListNodes.length;
-  if (commentListLength <= 5) {
+  const portionOfComment = 5;
+  if (commentListLength <= portionOfComment) {
     fullPictureModal.querySelector('.social__comment-count').textContent = `${commentListLength} из ${commentListLength} комментариев`;
     fullPictureModal.querySelector('.comments-loader').classList.add('hidden');
     commentListNodes.forEach((comment) => comment.classList.remove('hidden'));
   } else {
     fullPictureModal.querySelector('.social__comment-count').textContent = `5 из ${commentListLength} комментариев`;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < portionOfComment; i++) {
       commentListNodes[i].classList.remove('hidden');
     }
     fullPictureModal.querySelector('.comments-loader').classList.remove('hidden');
