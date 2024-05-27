@@ -1,5 +1,5 @@
 import { blockSubmitButton, perviewForm } from './preview-form.js';
-import { sendDataResult, resultOfSend, showDownloadOverlay, hideDownloadOverlay } from './utilities.js';
+import { sendDataResult, RESULT_OF_SEND, showDownloadOverlay, hideDownloadOverlay } from './utilities.js';
 const Route = {
   GET_DATA: 'https://28.javascript.htmlacademy.pro/kekstagram/data',
   POST_DATA: 'https://28.javascript.htmlacademy.pro/kekstagram'
@@ -55,11 +55,11 @@ export const formSubmit = (onSuccess) => {
     sendData(new FormData(evt.target))
       .then(() => {
         onSuccess();
-        sendDataResult(resultOfSend.Success);
+        sendDataResult(RESULT_OF_SEND.Success);
         perviewForm.reset();
       })
       .catch(() => {
-        sendDataResult(resultOfSend.Error);
+        sendDataResult(RESULT_OF_SEND.Error);
       })
       .finally(() => {
         blockSubmitButton(false);

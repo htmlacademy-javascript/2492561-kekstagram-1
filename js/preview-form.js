@@ -82,7 +82,7 @@ function closeUploadOverlayOnButton () {
   perviewForm.reset();
 }
 // На Escape
-function closeUploadOverlayOnEscape (evt) {
+export function closeUploadOverlayOnEscape (evt) {
   if (evt.key === 'Escape' && isFieldsFocused()) {
     evt.target.blur();
   } else if (evt.key === 'Escape') {

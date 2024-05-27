@@ -1,4 +1,4 @@
-import {fillThumbnail} from './thumbnail-contant.js';
+import {fillThumbnail} from './thumbnail-content.js';
 import { getTenRandomPhotos } from './utilities.js';
 
 

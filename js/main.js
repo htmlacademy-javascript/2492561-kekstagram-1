@@ -1,8 +1,7 @@
-import {fillThumbnail} from './thumbnail-contant.js';
-import { openModal, addEventForModal, addEventForLoadMoar } from './modal-events.js';
-import { fillModal } from './modal-contant.js';
+import {fillThumbnail} from './thumbnail-content.js';
+import { fillModal } from './modal-content.js';
 import { uploadFileInput, openPreviewOverlay , hideUploadOverlay } from './preview-form.js';
-import { getloadDataAlert } from './utilities.js';
+import { getloadDataAlert, openModal, addEventForModal, addEventForLoadMoar } from './utilities.js';
 import { getData, formSubmit } from './api.js';
 import { showUpFiltersBlock, debounce, setButtonsClick, renderWithFilters } from './filters.js';
 //Отрисовка миниатюр

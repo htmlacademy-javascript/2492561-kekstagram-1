@@ -1,3 +1,10 @@
+import { fullPictureModal } from './modal-content.js';
+import {closeUploadOverlayOnEscape} from './preview-form.js';
+
+export const RESULT_OF_SEND = {
+  Success: 'success',
+  Error: 'error'
+};
 //Ошибка при загрузке данных с сервера
 export const getloadDataAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -15,27 +22,80 @@ export const getloadDataAlert = (message) => {
   document.body.append(alertContainer);
 };
 
+const closeModalButton = document.querySelector('.big-picture__cancel');
+const loadMoarButton = fullPictureModal.querySelector('.social__comments-loader');
+let startIndex = 5;
+const loadMore = () => {
+  const commentListNodes = fullPictureModal.querySelectorAll('.social__comment');
+  const commentListLength = commentListNodes.length;
+  const commentPortion = 5;
+  if (startIndex + commentPortion >= commentListLength) {
+    for (let i = startIndex; i < commentListLength; i++) {
+      commentListNodes[i].classList.remove('hidden');
+    }
+    fullPictureModal.querySelector('.social__comment-count').textContent = `${commentListLength} из ${commentListLength} комментариев`;
+    fullPictureModal.querySelector('.comments-loader').classList.add('hidden');
+  } else {
+    for (let i = startIndex; i < startIndex + commentPortion; i++) {
+      commentListNodes[i].classList.remove('hidden');
+    }
+    startIndex += commentPortion;
+    fullPictureModal.querySelector('.social__comment-count').textContent = `${startIndex} из ${commentListLength} комментариев`;
+  }
+};
+export const addEventForLoadMoar = () => {
+  loadMoarButton.addEventListener('click', loadMore);
+};
+
+
+//Открытие модального окна
+export const openModal = () => {
+  document.body.classList.add('modal-open');
+  fullPictureModal.classList.remove('hidden');
+};
+
+//Закрытие модального окна при:
+//клике на кнопку
+const closeModalOnButton = () => {
+  fullPictureModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  closeModalButton.removeEventListener('click', closeModalOnButton);
+  document.removeEventListener('keydown', closeModalOnEscape);
+  loadMoarButton.removeEventListener('click', loadMore);
+  startIndex = 5;
+};
+// и нажатии Esc
+export function closeModalOnEscape (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closeModalOnButton();
+  }
+}
+
+
+export const addEventForModal = () => {
+  closeModalButton.addEventListener('click', closeModalOnButton);
+  document.addEventListener('keydown', closeModalOnEscape);
+};
+
 
 //Обработчик кнопок на оверлее сообщений отправки данных
 
-export const resultOfSend = {
-  Success: 'success',
-  Error: 'error'
-};
 
-const eventButtonInSendOverlay = (succesOrError,) => {
+const eventButtonInSendOverlay = (succesOrError) => {
   const okButton = document.querySelector(`.${succesOrError}__button`);
   const removedElement = document.querySelector(`section.${succesOrError}`);
   const alertField = removedElement.querySelector(`.${succesOrError}__inner`);
+  document.removeEventListener('keydown', closeUploadOverlayOnEscape);
+  document.addEventListener('keydown' , (evt) => {
+    evt.preventDefault();
+    if (evt.key === 'Escape') {
+      removedElement.remove();
+      document.addEventListener('keydown', closeUploadOverlayOnEscape);
+    }
+  });
   okButton.addEventListener('click', () => {
     removedElement.remove();
-  });
-  removedElement.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      evt.preventDefault();
-      removedElement.remove();
-      evt.stopPropagation();
-    }
   });
   removedElement.addEventListener('click', (evt) => {
     if(!alertField.contains(evt.target)) {
